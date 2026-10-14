@@ -32,4 +32,25 @@ public class EmployeeService {
 
     // คำเตือนเชิงวิชาการ: การเก็บรหัสผ่านเป็น plain text แล้วเทียบด้วย equals
     // เหมาะเฉพาะระดับฝึกหัด — ระบบจริงต้องเก็บ hash (เช่น bcrypt) และเทียบ hash
+    public List<Employee> getAll()  {
+        return employeeDao.getAll();
+    }
+    
+    public Employee get(int id) {
+        return employeeDao.get(id);
+    }
+    
+    public Employee save(Employee employee) {
+        return employeeDao.save(employee);
+    }
+    
+    public Employee update(Employee employee) {
+        return employeeDao.update(employee);
+    }
+    
+    public int delete(int id) {
+        Employee target = new Employee();
+        target.setId(id);
+        return employeeDao.delete(target);
+    }
 }
