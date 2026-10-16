@@ -46,6 +46,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("เข้าสู่ระบบ — BONUS SUKI POS");
+        setFont(new java.awt.Font("Leelawadee UI", 0, 10)); // NOI18N
         setResizable(false);
 
         lblHeader.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
@@ -74,19 +75,19 @@ public class LoginFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblHeader, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtPassword))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblLogin)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtLogin)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(95, Short.MAX_VALUE)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -130,10 +131,17 @@ public class LoginFrame extends javax.swing.JFrame {
             return;
         }
 
-        // (Step 6 จะเปลี่ยนข้อความชั่วคราวนี้เป็นการเปิดหน้าจัดการพนักงาน)
-        JOptionPane.showMessageDialog(this,
-                "ยินดีต้อนรับ " + employee.getName() + " (" + employee.getPosition() + ")",
-                "เข้าสู่ระบบสำเร็จ", JOptionPane.INFORMATION_MESSAGE);
+        if (employee.getRole() != 1) {
+            JOptionPane.showMessageDialog(this,
+                    employee.getName() + " ไม่ใช่ผู้จัดการ จึงเข้าหน้าจัดการพนักงานไม่ได้",
+                    "ไม่มีสิทธิ์เข้าใช้", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        EmployeeFrame employeeFrame = new EmployeeFrame(employee);
+        employeeFrame.setLocationRelativeTo(this);
+        employeeFrame.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
